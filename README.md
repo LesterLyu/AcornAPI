@@ -5,8 +5,12 @@
 ### Login
 ```java
 Acorn example = new Acorn("UTORid", "Password");
-example.doLogin();
-String eligibleRegistrations = example.getEligibleRegistrations();
+try {
+	example.doLogin();
+} catch (LoginFailedException e) {
+	e.printStackTrace();
+	// do something...
+}
 ```
 
 ### Get Registrations
