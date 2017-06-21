@@ -15,7 +15,7 @@ try {
 
 ### Get Registrations
 ```java
-// you need to provide registration index(the index of the returned array ) to do further action. ie. Get Student Courses
+// you need to provide registration index(the index of the returned array ) to do further action. ie. Get Course Info
 List<String> eligibleRegistrations = example.getEligibleRegistrations();
 ```
 
@@ -28,7 +28,7 @@ List<PlannedCourse> plannedCourse = example.getCourseManager().getPlannedCourses
 ### Get Course Info (can also use it to get waiting list rank for a waitlisted course)
 ```java
 int registrationIndex = 0;
-String courseCode = "CSC373H1", sectionCode = "Y", courseSessionCode = "20175",;
+String courseCode = "CSC373H1", sectionCode = "Y", courseSessionCode = "20175";
 EnrolledCourse course = example.getCourseManager().loadExtraInfo(courseCode, courseSessionCode, sectionCode, registrationIndex);
 ```
 
