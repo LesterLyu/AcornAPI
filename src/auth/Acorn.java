@@ -208,7 +208,6 @@ public class Acorn {
 
 			@Override
 			public void onResponse(Call call, Response response) throws IOException {
-				System.out.println(acoreCookieJar.getAllCookie());
 				Map<String, String> step1 = getFormData(Jsoup.parse(response.body().string()));
 				if(step1 == null)
 					callback.failure(new LoginFailedException("Internet Unavailable / Unknown Error"));
@@ -242,7 +241,6 @@ public class Acorn {
 
 			@Override
 			public void onResponse(Call call, Response response) throws IOException {
-				System.out.println(acoreCookieJar.getAllCookie());
 				Map<String, String> step2 = getFormData(Jsoup.parse(response.body().string()));
 				if(step2 == null)
 					callback.failure(new LoginFailedException("Internet Unavailable / Unknown Error"));
@@ -275,7 +273,6 @@ public class Acorn {
 
 			@Override
 			public void onResponse(Call call, Response response) throws IOException {
-				System.out.println(acoreCookieJar.getAllCookie());
 				String body = response.body().string();
 				if(body.contains("Authentication failed."))
 					callback.failure(new LoginFailedException());
@@ -310,7 +307,6 @@ public class Acorn {
 
 			@Override
 			public void onResponse(Call call, Response response) throws IOException {
-				System.out.println(acoreCookieJar.getAllCookie());
 				String body = response.body().string();
 				Map<String, String> res = getFormData(Jsoup.parse(body));
 				if(res == null)
@@ -343,10 +339,7 @@ public class Acorn {
 
 			@Override
 			public void onResponse(Call call, Response response) throws IOException {
-				System.out.println(acoreCookieJar.getAllCookie());
-				String body = response.body().string();
-				System.out.println(body);
-				if(body.contains("<title>ACORN</title>"))
+				if(response.body().string().contains("<title>ACORN</title>"))
 					callback.success(null);
 				else
 					callback.failure(new LoginFailedException("Acorn Unavailable"));
