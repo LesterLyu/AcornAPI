@@ -16,7 +16,12 @@ public class AcornCookieJar  implements CookieJar{
 	public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
 		//System.out.println("saveFromResponse:\n" + cookies);
 		if(cookieStore.containsKey(url.host())){
-			cookieStore.get(url.host()).addAll(cookies);
+			List<Cookie> cookieList = cookieStore.get(url.host());
+			for(Cookie c: cookies) {
+				// expire the cookie
+				if(!(c.expiresAt() < System.currentTimeMillis()))
+					cookieList.add(c);
+			}
 		}
 		else{
 			cookieStore.put(url.host(), new ArrayList<Cookie>());
