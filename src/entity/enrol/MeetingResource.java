@@ -4,6 +4,9 @@ package entity.enrol;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * The type Meeting resource.
+ */
 public class MeetingResource {
 
     @SerializedName("sessionCode")
@@ -50,252 +53,252 @@ public class MeetingResource {
     private String instructorInitials;
 
     /**
-     * 
-     * @return
-     *     The sessionCode
+     * Gets session code.
+     *
+     * @return The      sessionCode
      */
     public String getSessionCode() {
         return sessionCode;
     }
 
     /**
-     * 
-     * @param sessionCode
-     *     The sessionCode
+     * Sets session code.
+     *
+     * @param sessionCode The sessionCode
      */
     public void setSessionCode(String sessionCode) {
         this.sessionCode = sessionCode;
     }
 
     /**
-     * 
-     * @return
-     *     The activityCode
+     * Gets activity code.
+     *
+     * @return The      activityCode
      */
     public String getActivityCode() {
         return activityCode;
     }
 
     /**
-     * 
-     * @param activityCode
-     *     The activityCode
+     * Sets activity code.
+     *
+     * @param activityCode The activityCode
      */
     public void setActivityCode(String activityCode) {
         this.activityCode = activityCode;
     }
 
     /**
-     * 
-     * @return
-     *     The sectionCode
+     * Gets section code.
+     *
+     * @return The      sectionCode
      */
     public String getSectionCode() {
         return sectionCode;
     }
 
     /**
-     * 
-     * @param sectionCode
-     *     The sectionCode
+     * Sets section code.
+     *
+     * @param sectionCode The sectionCode
      */
     public void setSectionCode(String sectionCode) {
         this.sectionCode = sectionCode;
     }
 
     /**
-     * 
-     * @return
-     *     The teachMethod
+     * Gets teach method.
+     *
+     * @return The      teachMethod
      */
     public String getTeachMethod() {
         return teachMethod;
     }
 
     /**
-     * 
-     * @param teachMethod
-     *     The teachMethod
+     * Sets teach method.
+     *
+     * @param teachMethod The teachMethod
      */
     public void setTeachMethod(String teachMethod) {
         this.teachMethod = teachMethod;
     }
 
     /**
-     * 
-     * @return
-     *     The sectionNumber
+     * Gets section number.
+     *
+     * @return The      sectionNumber
      */
     public String getSectionNumber() {
         return sectionNumber;
     }
 
     /**
-     * 
-     * @param sectionNumber
-     *     The sectionNumber
+     * Sets section number.
+     *
+     * @param sectionNumber The sectionNumber
      */
     public void setSectionNumber(String sectionNumber) {
         this.sectionNumber = sectionNumber;
     }
 
     /**
-     * 
-     * @return
-     *     The sequence
+     * Gets sequence.
+     *
+     * @return The      sequence
      */
     public Integer getSequence() {
         return sequence;
     }
 
     /**
-     * 
-     * @param sequence
-     *     The sequence
+     * Sets sequence.
+     *
+     * @param sequence The sequence
      */
     public void setSequence(Integer sequence) {
         this.sequence = sequence;
     }
 
     /**
-     * 
-     * @return
-     *     The instructorOrgUnit
+     * Gets instructor org unit.
+     *
+     * @return The      instructorOrgUnit
      */
     public Object getInstructorOrgUnit() {
         return instructorOrgUnit;
     }
 
     /**
-     * 
-     * @param instructorOrgUnit
-     *     The instructorOrgUnit
+     * Sets instructor org unit.
+     *
+     * @param instructorOrgUnit The instructorOrgUnit
      */
     public void setInstructorOrgUnit(Object instructorOrgUnit) {
         this.instructorOrgUnit = instructorOrgUnit;
     }
 
     /**
-     * 
-     * @return
-     *     The teachPercent
+     * Gets teach percent.
+     *
+     * @return The      teachPercent
      */
     public Object getTeachPercent() {
         return teachPercent;
     }
 
     /**
-     * 
-     * @param teachPercent
-     *     The teachPercent
+     * Sets teach percent.
+     *
+     * @param teachPercent The teachPercent
      */
     public void setTeachPercent(Object teachPercent) {
         this.teachPercent = teachPercent;
     }
 
     /**
-     * 
-     * @return
-     *     The employeeNumber
+     * Gets employee number.
+     *
+     * @return The      employeeNumber
      */
     public Object getEmployeeNumber() {
         return employeeNumber;
     }
 
     /**
-     * 
-     * @param employeeNumber
-     *     The employeeNumber
+     * Sets employee number.
+     *
+     * @param employeeNumber The employeeNumber
      */
     public void setEmployeeNumber(Object employeeNumber) {
         this.employeeNumber = employeeNumber;
     }
 
     /**
-     * 
-     * @return
-     *     The logCounter
+     * Gets log counter.
+     *
+     * @return The      logCounter
      */
     public Integer getLogCounter() {
         return logCounter;
     }
 
     /**
-     * 
-     * @param logCounter
-     *     The logCounter
+     * Sets log counter.
+     *
+     * @param logCounter The logCounter
      */
     public void setLogCounter(Integer logCounter) {
         this.logCounter = logCounter;
     }
 
     /**
-     * 
-     * @return
-     *     The employeeType
+     * Gets employee type.
+     *
+     * @return The      employeeType
      */
     public Object getEmployeeType() {
         return employeeType;
     }
 
     /**
-     * 
-     * @param employeeType
-     *     The employeeType
+     * Sets employee type.
+     *
+     * @param employeeType The employeeType
      */
     public void setEmployeeType(Object employeeType) {
         this.employeeType = employeeType;
     }
 
     /**
-     * 
-     * @return
-     *     The instructorSurname
+     * Gets instructor surname.
+     *
+     * @return The      instructorSurname
      */
     public String getInstructorSurname() {
         return instructorSurname;
     }
 
     /**
-     * 
-     * @param instructorSurname
-     *     The instructorSurname
+     * Sets instructor surname.
+     *
+     * @param instructorSurname The instructorSurname
      */
     public void setInstructorSurname(String instructorSurname) {
         this.instructorSurname = instructorSurname;
     }
 
     /**
-     * 
-     * @return
-     *     The instructorFirstName
+     * Gets instructor first name.
+     *
+     * @return The      instructorFirstName
      */
     public String getInstructorFirstName() {
         return instructorFirstName;
     }
 
     /**
-     * 
-     * @param instructorFirstName
-     *     The instructorFirstName
+     * Sets instructor first name.
+     *
+     * @param instructorFirstName The instructorFirstName
      */
     public void setInstructorFirstName(String instructorFirstName) {
         this.instructorFirstName = instructorFirstName;
     }
 
     /**
-     * 
-     * @return
-     *     The instructorInitials
+     * Gets instructor initials.
+     *
+     * @return The      instructorInitials
      */
     public String getInstructorInitials() {
         return instructorInitials;
     }
 
     /**
-     * 
-     * @param instructorInitials
-     *     The instructorInitials
+     * Sets instructor initials.
+     *
+     * @param instructorInitials The instructorInitials
      */
     public void setInstructorInitials(String instructorInitials) {
         this.instructorInitials = instructorInitials;

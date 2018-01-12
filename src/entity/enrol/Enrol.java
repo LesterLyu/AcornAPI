@@ -7,6 +7,9 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Enrol.
+ */
 public class Enrol {
 
     @SerializedName("EnrolledCourse")
@@ -14,18 +17,18 @@ public class Enrol {
     private List<EnrolledCourse> aPP = new ArrayList<EnrolledCourse>();
 
     /**
-     * 
-     * @return
-     *     The aPP
+     * Gets app.
+     *
+     * @return The      aPP
      */
     public List<EnrolledCourse> getAPP() {
         return aPP;
     }
 
     /**
-     * 
-     * @param aPP
-     *     The EnrolledCourse
+     * Sets app.
+     *
+     * @param aPP The EnrolledCourse
      */
     public void setAPP(List<EnrolledCourse> aPP) {
         this.aPP = aPP;

@@ -7,6 +7,9 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Meeting.
+ */
 public class Meeting {
 
 	@Override
@@ -101,526 +104,525 @@ public class Meeting {
     @SerializedName("commaSeparatedInstructorNames")
     @Expose
     private String commaSeparatedInstructorNames;
-    
-    
+
 
     /**
-     * 
-     * @return
-     *     The sectionNo
+     * Gets section no.
+     *
+     * @return The      sectionNo
      */
     public String getSectionNo() {
         return sectionNo;
     }
 
     /**
-     * 
-     * @param sectionNo
-     *     The sectionNo
+     * Sets section no.
+     *
+     * @param sectionNo The sectionNo
      */
     public void setSectionNo(String sectionNo) {
         this.sectionNo = sectionNo;
     }
 
     /**
-     * 
-     * @return
-     *     The sessionCode
+     * Gets session code.
+     *
+     * @return The      sessionCode
      */
     public String getSessionCode() {
         return sessionCode;
     }
 
     /**
-     * 
-     * @param sessionCode
-     *     The sessionCode
+     * Sets session code.
+     *
+     * @param sessionCode The sessionCode
      */
     public void setSessionCode(String sessionCode) {
         this.sessionCode = sessionCode;
     }
 
     /**
-     * 
-     * @return
-     *     The teachMethod
+     * Gets teach method.
+     *
+     * @return The      teachMethod
      */
     public String getTeachMethod() {
         return teachMethod;
     }
 
     /**
-     * 
-     * @param teachMethod
-     *     The teachMethod
+     * Sets teach method.
+     *
+     * @param teachMethod The teachMethod
      */
     public void setTeachMethod(String teachMethod) {
         this.teachMethod = teachMethod;
     }
 
     /**
-     * 
-     * @return
-     *     The enrollSpace
+     * Gets enroll space.
+     *
+     * @return The      enrollSpace
      */
     public Integer getEnrollSpace() {
         return enrollSpace;
     }
 
     /**
-     * 
-     * @param enrollSpace
-     *     The enrollSpace
+     * Sets enroll space.
+     *
+     * @param enrollSpace The enrollSpace
      */
     public void setEnrollSpace(Integer enrollSpace) {
         this.enrollSpace = enrollSpace;
     }
 
     /**
-     * 
-     * @return
-     *     The enrollmentSpaceAvailable
+     * Gets enrollment space available.
+     *
+     * @return The      enrollmentSpaceAvailable
      */
     public Integer getEnrollmentSpaceAvailable() {
         return enrollmentSpaceAvailable;
     }
 
     /**
-     * 
-     * @param enrollmentSpaceAvailable
-     *     The enrollmentSpaceAvailable
+     * Sets enrollment space available.
+     *
+     * @param enrollmentSpaceAvailable The enrollmentSpaceAvailable
      */
     public void setEnrollmentSpaceAvailable(Integer enrollmentSpaceAvailable) {
         this.enrollmentSpaceAvailable = enrollmentSpaceAvailable;
     }
 
     /**
-     * 
-     * @return
-     *     The totalSpace
+     * Gets total space.
+     *
+     * @return The      totalSpace
      */
     public Integer getTotalSpace() {
         return totalSpace;
     }
 
     /**
-     * 
-     * @param totalSpace
-     *     The totalSpace
+     * Sets total space.
+     *
+     * @param totalSpace The totalSpace
      */
     public void setTotalSpace(Integer totalSpace) {
         this.totalSpace = totalSpace;
     }
 
     /**
-     * 
-     * @return
-     *     The cancelled
+     * Gets cancelled.
+     *
+     * @return The      cancelled
      */
     public Boolean getCancelled() {
         return cancelled;
     }
 
     /**
-     * 
-     * @param cancelled
-     *     The cancelled
+     * Sets cancelled.
+     *
+     * @param cancelled The cancelled
      */
     public void setCancelled(Boolean cancelled) {
         this.cancelled = cancelled;
     }
 
     /**
-     * 
-     * @return
-     *     The closed
+     * Gets closed.
+     *
+     * @return The      closed
      */
     public Boolean getClosed() {
         return closed;
     }
 
     /**
-     * 
-     * @param closed
-     *     The closed
+     * Sets closed.
+     *
+     * @param closed The closed
      */
     public void setClosed(Boolean closed) {
         this.closed = closed;
     }
 
     /**
-     * 
-     * @return
-     *     The waitlistable
+     * Gets waitlistable.
+     *
+     * @return The      waitlistable
      */
     public Boolean getWaitlistable() {
         return waitlistable;
     }
 
     /**
-     * 
-     * @param waitlistable
-     *     The waitlistable
+     * Sets waitlistable.
+     *
+     * @param waitlistable The waitlistable
      */
     public void setWaitlistable(Boolean waitlistable) {
         this.waitlistable = waitlistable;
     }
 
     /**
-     * 
-     * @return
-     *     The subTitle1
+     * Gets sub title 1.
+     *
+     * @return The      subTitle1
      */
     public String getSubTitle1() {
         return subTitle1;
     }
 
     /**
-     * 
-     * @param subTitle1
-     *     The subTitle1
+     * Sets sub title 1.
+     *
+     * @param subTitle1 The subTitle1
      */
     public void setSubTitle1(String subTitle1) {
         this.subTitle1 = subTitle1;
     }
 
     /**
-     * 
-     * @return
-     *     The subTitle2
+     * Gets sub title 2.
+     *
+     * @return The      subTitle2
      */
     public String getSubTitle2() {
         return subTitle2;
     }
 
     /**
-     * 
-     * @param subTitle2
-     *     The subTitle2
+     * Sets sub title 2.
+     *
+     * @param subTitle2 The subTitle2
      */
     public void setSubTitle2(String subTitle2) {
         this.subTitle2 = subTitle2;
     }
 
     /**
-     * 
-     * @return
-     *     The subTitle3
+     * Gets sub title 3.
+     *
+     * @return The      subTitle3
      */
     public String getSubTitle3() {
         return subTitle3;
     }
 
     /**
-     * 
-     * @param subTitle3
-     *     The subTitle3
+     * Sets sub title 3.
+     *
+     * @param subTitle3 The subTitle3
      */
     public void setSubTitle3(String subTitle3) {
         this.subTitle3 = subTitle3;
     }
 
     /**
-     * 
-     * @return
-     *     The waitlistRank
+     * Gets waitlist rank.
+     *
+     * @return The      waitlistRank
      */
     public Integer getWaitlistRank() {
         return waitlistRank;
     }
 
     /**
-     * 
-     * @param waitlistRank
-     *     The waitlistRank
+     * Sets waitlist rank.
+     *
+     * @param waitlistRank The waitlistRank
      */
     public void setWaitlistRank(Integer waitlistRank) {
         this.waitlistRank = waitlistRank;
     }
 
     /**
-     * 
-     * @return
-     *     The waitlistLookupMethod
+     * Gets waitlist lookup method.
+     *
+     * @return The      waitlistLookupMethod
      */
     public Object getWaitlistLookupMethod() {
         return waitlistLookupMethod;
     }
 
     /**
-     * 
-     * @param waitlistLookupMethod
-     *     The waitlistLookupMethod
+     * Sets waitlist lookup method.
+     *
+     * @param waitlistLookupMethod The waitlistLookupMethod
      */
     public void setWaitlistLookupMethod(Object waitlistLookupMethod) {
         this.waitlistLookupMethod = waitlistLookupMethod;
     }
 
     /**
-     * 
-     * @return
-     *     The times
+     * Gets times.
+     *
+     * @return The      times
      */
     public List<Time> getTimes() {
         return times;
     }
 
     /**
-     * 
-     * @param times
-     *     The times
+     * Sets times.
+     *
+     * @param times The times
      */
     public void setTimes(List<Time> times) {
         this.times = times;
     }
 
     /**
-     * 
-     * @return
-     *     The displayTime
+     * Gets display time.
+     *
+     * @return The      displayTime
      */
     public String getDisplayTime() {
         return displayTime;
     }
 
     /**
-     * 
-     * @param displayTime
-     *     The displayTime
+     * Sets display time.
+     *
+     * @param displayTime The displayTime
      */
     public void setDisplayTime(String displayTime) {
         this.displayTime = displayTime;
     }
 
     /**
-     * 
-     * @return
-     *     The action
+     * Gets action.
+     *
+     * @return The      action
      */
     public String getAction() {
         return action;
     }
 
     /**
-     * 
-     * @param action
-     *     The action
+     * Sets action.
+     *
+     * @param action The action
      */
     public void setAction(String action) {
         this.action = action;
     }
 
     /**
-     * 
-     * @return
-     *     The full
+     * Gets full.
+     *
+     * @return The      full
      */
     public Boolean getFull() {
         return full;
     }
 
     /**
-     * 
-     * @param full
-     *     The full
+     * Sets full.
+     *
+     * @param full The full
      */
     public void setFull(Boolean full) {
         this.full = full;
     }
 
     /**
-     * 
-     * @return
-     *     The enrollmentControlFull
+     * Gets enrollment control full.
+     *
+     * @return The      enrollmentControlFull
      */
     public Boolean getEnrollmentControlFull() {
         return enrollmentControlFull;
     }
 
     /**
-     * 
-     * @param enrollmentControlFull
-     *     The enrollmentControlFull
+     * Sets enrollment control full.
+     *
+     * @param enrollmentControlFull The enrollmentControlFull
      */
     public void setEnrollmentControlFull(Boolean enrollmentControlFull) {
         this.enrollmentControlFull = enrollmentControlFull;
     }
 
     /**
-     * 
-     * @return
-     *     The enrollmentControlMissing
+     * Gets enrollment control missing.
+     *
+     * @return The      enrollmentControlMissing
      */
     public Boolean getEnrollmentControlMissing() {
         return enrollmentControlMissing;
     }
 
     /**
-     * 
-     * @param enrollmentControlMissing
-     *     The enrollmentControlMissing
+     * Sets enrollment control missing.
+     *
+     * @param enrollmentControlMissing The enrollmentControlMissing
      */
     public void setEnrollmentControlMissing(Boolean enrollmentControlMissing) {
         this.enrollmentControlMissing = enrollmentControlMissing;
     }
 
     /**
-     * 
-     * @return
-     *     The deliveryMode
+     * Gets delivery mode.
+     *
+     * @return The      deliveryMode
      */
     public String getDeliveryMode() {
         return deliveryMode;
     }
 
     /**
-     * 
-     * @param deliveryMode
-     *     The deliveryMode
+     * Sets delivery mode.
+     *
+     * @param deliveryMode The deliveryMode
      */
     public void setDeliveryMode(String deliveryMode) {
         this.deliveryMode = deliveryMode;
     }
 
     /**
-     * 
-     * @return
-     *     The waitlistableForAll
+     * Gets waitlistable for all.
+     *
+     * @return The      waitlistableForAll
      */
     public Boolean getWaitlistableForAll() {
         return waitlistableForAll;
     }
 
     /**
-     * 
-     * @param waitlistableForAll
-     *     The waitlistableForAll
+     * Sets waitlistable for all.
+     *
+     * @param waitlistableForAll The waitlistableForAll
      */
     public void setWaitlistableForAll(Boolean waitlistableForAll) {
         this.waitlistableForAll = waitlistableForAll;
     }
 
     /**
-     * 
-     * @return
-     *     The message
+     * Gets message.
+     *
+     * @return The      message
      */
     public Object getMessage() {
         return message;
     }
 
     /**
-     * 
-     * @param message
-     *     The message
+     * Sets message.
+     *
+     * @param message The message
      */
     public void setMessage(Object message) {
         this.message = message;
     }
 
     /**
-     * 
-     * @return
-     *     The professorApprovalReq
+     * Gets professor approval req.
+     *
+     * @return The      professorApprovalReq
      */
     public String getProfessorApprovalReq() {
         return professorApprovalReq;
     }
 
     /**
-     * 
-     * @param professorApprovalReq
-     *     The professorApprovalReq
+     * Sets professor approval req.
+     *
+     * @param professorApprovalReq The professorApprovalReq
      */
     public void setProfessorApprovalReq(String professorApprovalReq) {
         this.professorApprovalReq = professorApprovalReq;
     }
 
     /**
-     * 
-     * @return
-     *     The meetingResources
+     * Gets meeting resources.
+     *
+     * @return The      meetingResources
      */
     public List<MeetingResource> getMeetingResources() {
         return meetingResources;
     }
 
     /**
-     * 
-     * @param meetingResources
-     *     The meetingResources
+     * Sets meeting resources.
+     *
+     * @param meetingResources The meetingResources
      */
     public void setMeetingResources(List<MeetingResource> meetingResources) {
         this.meetingResources = meetingResources;
     }
 
     /**
-     * 
-     * @return
-     *     The displayName
+     * Gets display name.
+     *
+     * @return The      displayName
      */
     public String getDisplayName() {
         return displayName;
     }
 
     /**
-     * 
-     * @param displayName
-     *     The displayName
+     * Sets display name.
+     *
+     * @param displayName The displayName
      */
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
     }
 
     /**
-     * 
-     * @return
-     *     The subTitle
+     * Gets sub title.
+     *
+     * @return The      subTitle
      */
     public String getSubTitle() {
         return subTitle;
     }
 
     /**
-     * 
-     * @param subTitle
-     *     The subTitle
+     * Sets sub title.
+     *
+     * @param subTitle The subTitle
      */
     public void setSubTitle(String subTitle) {
         this.subTitle = subTitle;
     }
 
     /**
-     * 
-     * @return
-     *     The hasSubTitle
+     * Gets has sub title.
+     *
+     * @return The      hasSubTitle
      */
     public Boolean getHasSubTitle() {
         return hasSubTitle;
     }
 
     /**
-     * 
-     * @param hasSubTitle
-     *     The hasSubTitle
+     * Sets has sub title.
+     *
+     * @param hasSubTitle The hasSubTitle
      */
     public void setHasSubTitle(Boolean hasSubTitle) {
         this.hasSubTitle = hasSubTitle;
     }
 
     /**
-     * 
-     * @return
-     *     The commaSeparatedInstructorNames
+     * Gets comma separated instructor names.
+     *
+     * @return The      commaSeparatedInstructorNames
      */
     public String getCommaSeparatedInstructorNames() {
         return commaSeparatedInstructorNames;
     }
 
     /**
-     * 
-     * @param commaSeparatedInstructorNames
-     *     The commaSeparatedInstructorNames
+     * Sets comma separated instructor names.
+     *
+     * @param commaSeparatedInstructorNames The commaSeparatedInstructorNames
      */
     public void setCommaSeparatedInstructorNames(String commaSeparatedInstructorNames) {
         this.commaSeparatedInstructorNames = commaSeparatedInstructorNames;

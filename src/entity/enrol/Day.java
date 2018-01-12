@@ -4,6 +4,9 @@ package entity.enrol;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * The type Day.
+ */
 public class Day {
 
     @SerializedName("dayCode")
@@ -23,90 +26,90 @@ public class Day {
     private Integer gregorianCalendarDayOfWeek;
 
     /**
-     * 
-     * @return
-     *     The dayCode
+     * Gets day code.
+     *
+     * @return The      dayCode
      */
     public String getDayCode() {
         return dayCode;
     }
 
     /**
-     * 
-     * @param dayCode
-     *     The dayCode
+     * Sets day code.
+     *
+     * @param dayCode The dayCode
      */
     public void setDayCode(String dayCode) {
         this.dayCode = dayCode;
     }
 
     /**
-     * 
-     * @return
-     *     The dayName
+     * Gets day name.
+     *
+     * @return The      dayName
      */
     public String getDayName() {
         return dayName;
     }
 
     /**
-     * 
-     * @param dayName
-     *     The dayName
+     * Sets day name.
+     *
+     * @param dayName The dayName
      */
     public void setDayName(String dayName) {
         this.dayName = dayName;
     }
 
     /**
-     * 
-     * @return
-     *     The index
+     * Gets index.
+     *
+     * @return The      index
      */
     public Integer getIndex() {
         return index;
     }
 
     /**
-     * 
-     * @param index
-     *     The index
+     * Sets index.
+     *
+     * @param index The index
      */
     public void setIndex(Integer index) {
         this.index = index;
     }
 
     /**
-     * 
-     * @return
-     *     The weekDay
+     * Gets week day.
+     *
+     * @return The      weekDay
      */
     public Boolean getWeekDay() {
         return weekDay;
     }
 
     /**
-     * 
-     * @param weekDay
-     *     The weekDay
+     * Sets week day.
+     *
+     * @param weekDay The weekDay
      */
     public void setWeekDay(Boolean weekDay) {
         this.weekDay = weekDay;
     }
 
     /**
-     * 
-     * @return
-     *     The gregorianCalendarDayOfWeek
+     * Gets gregorian calendar day of week.
+     *
+     * @return The      gregorianCalendarDayOfWeek
      */
     public Integer getGregorianCalendarDayOfWeek() {
         return gregorianCalendarDayOfWeek;
     }
 
     /**
-     * 
-     * @param gregorianCalendarDayOfWeek
-     *     The gregorianCalendarDayOfWeek
+     * Sets gregorian calendar day of week.
+     *
+     * @param gregorianCalendarDayOfWeek The gregorianCalendarDayOfWeek
      */
     public void setGregorianCalendarDayOfWeek(Integer gregorianCalendarDayOfWeek) {
         this.gregorianCalendarDayOfWeek = gregorianCalendarDayOfWeek;

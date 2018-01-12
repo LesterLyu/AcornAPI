@@ -8,18 +8,30 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 /**
- * 
- * @author Lester Lyu
+ * The type Grade manager.
  *
+ * @author Lester Lyu
  */
 public class GradeManager {
 
 	private OkHttpClient client;
 
+	/**
+	 * Instantiates a new Grade manager.
+	 *
+	 * @param client the client
+	 */
 	public GradeManager(OkHttpClient client){
 		this.client = client;
 	}
 
+	/**
+	 * The method retrieves the HTML string of the academic history page of ACORN of University of Toronto students.
+	 * It parses the requested HTML produces the corresponding Document object and then converts it into string.
+	 * If the request is fulfilled it returns the HTML string otherwise returns the "N/A"
+	 *
+	 * @return the string
+	 */
 	public String getGradeHtml(){
 		// https://acorn.utoronto.ca/sws/transcript/academic/main.do?main.dispatch&mode=complete
 		Request request = new Request.Builder()
