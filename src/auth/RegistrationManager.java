@@ -16,16 +16,32 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+/**
+ * The type Registration manager.
+ */
 public class RegistrationManager {
 
 	private OkHttpClient client;
 
+	/**
+	 * The Registrations array.
+	 */
 	JsonArray registrationsArray;
 
+	/**
+	 * Instantiates a new Registration manager.
+	 *
+	 * @param client the client
+	 */
 	public RegistrationManager(OkHttpClient client) {
 		this.client = client;
 	}
 
+	/**
+	 * Get eligible registrations list.
+	 *
+	 * @return the list
+	 */
 	public List<String> getEligibleRegistrations(){
 		System.out.println("Requesting Eligible Registrations...");
 		// https://acorn.utoronto.ca/sws/rest/enrolment/eligible-registrations
@@ -55,7 +71,12 @@ public class RegistrationManager {
 		return null;
 	}
 
-	
+
+	/**
+	 * Get number of registrations int.
+	 *
+	 * @return the int
+	 */
 	public int getNumberOfRegistrations(){
 		if(registrationsArray == null)
 			getEligibleRegistrations();
@@ -63,6 +84,11 @@ public class RegistrationManager {
 	}
 
 
+	/**
+	 * Get registration params json object.
+	 *
+	 * @return the json object
+	 */
 	public JsonObject getRegistrationParams(){
 		if(registrationsArray == null)
 			getEligibleRegistrations();
@@ -71,6 +97,12 @@ public class RegistrationManager {
 		return getRegistrationParams(0);
 	}
 
+	/**
+	 * Get registration params json object.
+	 *
+	 * @param index the index
+	 * @return the json object
+	 */
 	public JsonObject getRegistrationParams(int index){
 		if(registrationsArray == null)
 			getEligibleRegistrations();

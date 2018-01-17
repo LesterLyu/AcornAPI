@@ -18,8 +18,9 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 
-
-
+/**
+ * The type Course searcher.
+ */
 public class CourseSearcher{
 	
 	private OkHttpClient client;
@@ -27,13 +28,28 @@ public class CourseSearcher{
 	private static OkHttpClient iitClient = new OkHttpClient.Builder().build();;
 	
 	private RegistrationManager registrationManager;
-	
+
+	/**
+	 * Instantiates a new Course searcher.
+	 *
+	 * @param client              the client
+	 * @param registrationManager the registration manager
+	 */
 	public CourseSearcher(OkHttpClient client, RegistrationManager registrationManager){
 		this.client = client;
 		this.registrationManager = registrationManager;
         this.iitClient = new OkHttpClient.Builder().build();
 	}
-	
+
+	/**
+	 * Search course enrolled course.
+	 *
+	 * @param courseCode        the course code
+	 * @param courseSessionCode the course session code
+	 * @param sectionCode       the section code
+	 * @param registrationIndex the registration index
+	 * @return the enrolled course
+	 */
 	public EnrolledCourse searchCourse(String courseCode, String courseSessionCode, String sectionCode, int registrationIndex){
 		return null;
 	}
@@ -41,10 +57,12 @@ public class CourseSearcher{
 
 	/**
 	 * iit
-	 * @param r
+	 *
+	 * @param code the code
+	 * @param r    the r
 	 * @return
 	 */
-    public static void getCourseInfo(String code, final ResponseListener r) {
+	public static void getCourseInfo(String code, final ResponseListener r) {
 
         Request request = new Request.Builder()
                 .url("https://timetable.iit.artsci.utoronto.ca/api/20179/courses?code=" + code)
