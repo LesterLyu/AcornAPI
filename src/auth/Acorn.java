@@ -117,7 +117,6 @@ public class Acorn {
 		loginInfo.put("j_password", acornPassword);
 		Map<String, String> redirectToAcorn = doStep2(loginInfo);
 		boolean result = doStep3(redirectToAcorn);
-		System.out.println(result);
 		return true;
 	}
 	
@@ -151,7 +150,6 @@ public class Acorn {
 	 */
 	private Map<String, String> doStep2(Map<String, String> params) {
 		String newUrl = params.remove("new-url");
-		System.out.println(params);
 		FormBody.Builder formBuilder = new FormBody.Builder();
 		for(String key: params.keySet()){
 			formBuilder.add(key, params.get(key));

@@ -43,7 +43,7 @@ public class RegistrationManager {
 	 * @return the list
 	 */
 	public List<String> getEligibleRegistrations(){
-		System.out.println("Requesting Eligible Registrations...");
+		//System.out.println("Requesting Eligible Registrations...");
 		// https://acorn.utoronto.ca/sws/rest/enrolment/eligible-registrations
 		Request request = new Request.Builder()
 				.url("https://acorn.utoronto.ca/sws/rest/enrolment/eligible-registrations")
@@ -52,7 +52,7 @@ public class RegistrationManager {
 		try {
 			Response response = client.newCall(request).execute();
 			String eligibleRegistrationsJson = response.body().string();
-			System.out.println(eligibleRegistrationsJson);
+			//System.out.println(eligibleRegistrationsJson);
 			// parse the readable string
 			JsonParser parser = new JsonParser();
 			registrationsArray = parser.parse(eligibleRegistrationsJson).getAsJsonArray();
@@ -62,7 +62,7 @@ public class RegistrationManager {
 						nextRegistration.getAsJsonObject().get("candidacyPostCode").getAsString() + ") " +
 						nextRegistration.getAsJsonObject().get("sessionDescription").getAsString()).text());
 			}
-			System.out.println(output);
+			//System.out.println(output);
 			return output;
 
 		} catch (IOException e) {

@@ -155,7 +155,7 @@ public class CourseManager {
 						String sectionCode = nextCourse.getSectionCode();
 						// load extra info but still the same object type
 						EnrolledCourse newCourse = loadExtraInfo(courseCode, courseSessionCode, sectionCode, registrationIndex);
-						System.out.println(newCourse);
+						//System.out.println(newCourse);
 						appliedCourses.add(newCourse);
 					}
 					
@@ -235,7 +235,7 @@ public class CourseManager {
 			Response response = client.newCall(request).execute();
 
 			String courseJson = response.body().string();
-			System.out.println(courseJson);
+			//System.out.println(courseJson);
 			Gson gson = new Gson();
 			JsonParser parser = new JsonParser();
 			JsonObject courseJsonObject = parser.parse(courseJson).getAsJsonObject().get("responseObject").getAsJsonObject();
@@ -406,7 +406,7 @@ public class CourseManager {
 		try {
 			Response response = client.newCall(request).execute();
 			String result = response.body().string();
-			System.out.println("status code: " + response.code() + " return value: " + result);
+			//System.out.println("status code: " + response.code() + " return value: " + result);
 			if(response.code() == 500){
 				lastErrorMsg = result;
 				return false;
