@@ -27,10 +27,7 @@ public class Acorn {
 	private CourseManager courseManager;
 	private RegistrationManager registrationManager;
 	private GradeManager gradeManager;
-	private String url[] = {"https://acorn.utoronto.ca/sws", 
-			"https://weblogin.utoronto.ca/",
-			"https://idp.utorauth.utoronto.ca/PubCookie.reply",
-			"https://acorn.utoronto.ca/spACS"};
+	private String url[] = {"https://acorn.utoronto.ca/sws"};
 
 	public Acorn(String acornUsername, String acornPassword) {
 		this.acornUsername = acornUsername;
@@ -78,22 +75,20 @@ public class Acorn {
 	 * @throws LoginFailedException if problem occurs
 	 */
 	public boolean doLogin() throws LoginFailedException{
-		Map<String, String> step1 = doStep1();
-		if(step1 == null)
+		Map<String, String> loginInfo = doStep1();
+		if(loginInfo == null)
 			return false;
-		Map<String, String> loginInfo = doStep2(step1);
-		loginInfo.put("user", acornUsername);
-		loginInfo.put("pass", acornPassword);
-		Map<String, String> step3 = doStep3(loginInfo);
-		Map<String, String> step4 = doStep4(step3);
-		boolean result = doStep5(step4);
+		loginInfo.put("j_username", acornUsername);
+		loginInfo.put("j_password", acornPassword);
+		Map<String, String> redirectToAcorn = doStep2(loginInfo);
+		boolean result = doStep3(redirectToAcorn);
 		System.out.println(result);
 		return true;
 	}
 	
 	/**
 	 * First step,
-	 * get pubcookie_g_req, post_stuff, relay_url from https://idp.utorauth.utoronto.ca/idp/Authn/RemoteUserForceAuth
+	 * get params from https://idpz.utorauth.utoronto.ca/idp/profile/SAML2/Redirect/SSO
 	 * @return the Map of them
 	 */
 	private Map<String, String> doStep1(){
@@ -103,7 +98,10 @@ public class Acorn {
 				.build();
 		try {
 			Response response = client.newCall(request).execute();
-			Map<String, String> res = getFormData(Jsoup.parse(response.body().string()));
+			String body = response.body().string();
+			Map<String, String> res = getFormData(Jsoup.parse(body), false);
+			res.put("_eventId_proceed", ""); // must have this field!
+			res.put("new-url", response.request().url().toString());
 			return res;
 		} catch(Exception e){
 			e.printStackTrace();
@@ -112,48 +110,29 @@ public class Acorn {
 	}
 	
 	/**
-	 * Second step
-	 * get 25 params include password and username
+	 * Log in with username / password, supposed to get SAMLResponse
+	 * @param params
 	 * @return
 	 */
-	private Map<String, String> doStep2(Map<String, String> params){
+	private Map<String, String> doStep2(Map<String, String> params) {
+		String newUrl = params.remove("new-url");
+		System.out.println(params);
 		FormBody.Builder formBuilder = new FormBody.Builder();
 		for(String key: params.keySet()){
 			formBuilder.add(key, params.get(key));
 		}
 		Request request = new Request.Builder()
-				.url(url[1])
-				.post(formBuilder.build())
-				.build();
-		try {
-			Response response = client.newCall(request).execute();
-			Map<String, String> res = getFormData(Jsoup.parse(response.body().string()));
-			return res;
-		} catch(Exception e){
-			e.printStackTrace();
-		}
-		return null;
-	}
-	
-	/**
-	 * Third Step - do log in
-	 */
-	private Map<String, String> doStep3(Map<String, String> params){
-		FormBody.Builder formBuilder = new FormBody.Builder();
-		for(String key: params.keySet()){
-			formBuilder.add(key, params.get(key));
-		}
-		Request request = new Request.Builder()
-				.url(url[1])
-				.post(formBuilder.build())
+				.url(newUrl)
 				.addHeader("Content-Type", "application/x-www-form-urlencoded")
+				.post(formBuilder.build())
 				.build();
 		try {
 			Response response = client.newCall(request).execute();
 			String body = response.body().string();
 			if(body.contains("Authentication failed."))
 				throw new LoginFailedException();
-			Map<String, String> res = getFormData(Jsoup.parse(body));
+			Map<String, String> res = getFormData(Jsoup.parse(body), true);
+			System.out.println(res);
 			return res;
 		} catch(Exception e){
 			e.printStackTrace();
@@ -162,37 +141,17 @@ public class Acorn {
 	}
 	
 	/**
-	 * 4th Step
+	 * 5th Step - final login, send SAMLRespons, return true if success
 	 */
-	private Map<String, String> doStep4(Map<String, String> params){
+	private boolean doStep3(Map<String, String> params){
+		String newUrl = params.remove("new-action");
+		
 		FormBody.Builder formBuilder = new FormBody.Builder();
 		for(String key: params.keySet()){
 			formBuilder.add(key, params.get(key));
 		}
 		Request request = new Request.Builder()
-				.url(url[2])
-				.post(formBuilder.build())
-				.build();
-		try {
-			Response response = client.newCall(request).execute();
-			Map<String, String> res = getFormData(Jsoup.parse(response.body().string()));
-			return res;
-		} catch(Exception e){
-			e.printStackTrace();
-		}
-		return null;
-	}
-	
-	/**
-	 * 5th Step - final login, return true if success
-	 */
-	private boolean doStep5(Map<String, String> params){
-		FormBody.Builder formBuilder = new FormBody.Builder();
-		for(String key: params.keySet()){
-			formBuilder.add(key, params.get(key));
-		}
-		Request request = new Request.Builder()
-				.url(url[3])
+				.url(newUrl)
 				.post(formBuilder.build())
 				.build();
 		try {
@@ -216,7 +175,7 @@ public class Acorn {
 	 * @param doc
 	 * @return null if this Document has more than one form or does not have form
 	 */
-	private static Map<String, String> getFormData(Document doc){
+	private static Map<String, String> getFormData(Document doc, boolean includeAction){
 		Elements formElements = doc.getElementsByTag("form");
 		if(formElements.size() != 1)
 			return null;
@@ -226,6 +185,8 @@ public class Acorn {
 		for(KeyVal kv: data){
 			map.put(kv.key(), kv.value());
 		}
+		if(includeAction)
+			map.put("new-action", formElements.attr("action"));
 		return map;
 	}
 
