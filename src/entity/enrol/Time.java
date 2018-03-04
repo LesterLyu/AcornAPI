@@ -7,6 +7,9 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Time.
+ */
 public class Time {
 
     @SerializedName("day")
@@ -32,126 +35,126 @@ public class Time {
     private String commaSeparatedInstructorNames;
 
     /**
-     * 
-     * @return
-     *     The day
+     * Gets day.
+     *
+     * @return The      day
      */
     public Day getDay() {
         return day;
     }
 
     /**
-     * 
-     * @param day
-     *     The day
+     * Sets day.
+     *
+     * @param day The day
      */
     public void setDay(Day day) {
         this.day = day;
     }
 
     /**
-     * 
-     * @return
-     *     The startTime
+     * Gets start time.
+     *
+     * @return The      startTime
      */
     public String getStartTime() {
         return startTime;
     }
 
     /**
-     * 
-     * @param startTime
-     *     The startTime
+     * Sets start time.
+     *
+     * @param startTime The startTime
      */
     public void setStartTime(String startTime) {
         this.startTime = startTime;
     }
 
     /**
-     * 
-     * @return
-     *     The endTime
+     * Gets end time.
+     *
+     * @return The      endTime
      */
     public String getEndTime() {
         return endTime;
     }
 
     /**
-     * 
-     * @param endTime
-     *     The endTime
+     * Sets end time.
+     *
+     * @param endTime The endTime
      */
     public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
 
     /**
-     * 
-     * @return
-     *     The buildingCode
+     * Gets building code.
+     *
+     * @return The      buildingCode
      */
     public String getBuildingCode() {
         return buildingCode;
     }
 
     /**
-     * 
-     * @param buildingCode
-     *     The buildingCode
+     * Sets building code.
+     *
+     * @param buildingCode The buildingCode
      */
     public void setBuildingCode(String buildingCode) {
         this.buildingCode = buildingCode;
     }
 
     /**
-     * 
-     * @return
-     *     The room
+     * Gets room.
+     *
+     * @return The      room
      */
     public String getRoom() {
         return room;
     }
 
     /**
-     * 
-     * @param room
-     *     The room
+     * Sets room.
+     *
+     * @param room The room
      */
     public void setRoom(String room) {
         this.room = room;
     }
 
     /**
-     * 
-     * @return
-     *     The instructors
+     * Gets instructors.
+     *
+     * @return The      instructors
      */
     public List<String> getInstructors() {
         return instructors;
     }
 
     /**
-     * 
-     * @param instructors
-     *     The instructors
+     * Sets instructors.
+     *
+     * @param instructors The instructors
      */
     public void setInstructors(List<String> instructors) {
         this.instructors = instructors;
     }
 
     /**
-     * 
-     * @return
-     *     The commaSeparatedInstructorNames
+     * Gets comma separated instructor names.
+     *
+     * @return The      commaSeparatedInstructorNames
      */
     public String getCommaSeparatedInstructorNames() {
         return commaSeparatedInstructorNames;
     }
 
     /**
-     * 
-     * @param commaSeparatedInstructorNames
-     *     The commaSeparatedInstructorNames
+     * Sets comma separated instructor names.
+     *
+     * @param commaSeparatedInstructorNames The commaSeparatedInstructorNames
      */
     public void setCommaSeparatedInstructorNames(String commaSeparatedInstructorNames) {
         this.commaSeparatedInstructorNames = commaSeparatedInstructorNames;

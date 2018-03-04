@@ -28,18 +28,24 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 /**
- * 
- * @author Lester Lyu
+ * The type Course manager.
  *
+ * @author Lester Lyu
  */
 public class CourseManager {
 
+	/**
+	 * The constant JSON.
+	 */
 	public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 	
 	private OkHttpClient client;
 
 	private RegistrationManager registrationManager;
-	
+
+	/**
+	 * The Last error msg.
+	 */
 	public String lastErrorMsg = "N/A";
 
 	/**
@@ -53,6 +59,12 @@ public class CourseManager {
 	private  List<PlannedCourse> plannedCourses;
 
 
+	/**
+	 * Instantiates a new Course manager.
+	 *
+	 * @param client              the client
+	 * @param registrationManager the registration manager
+	 */
 	public CourseManager(OkHttpClient client, RegistrationManager registrationManager){
 		this.client = client;
 		this.registrationManager = registrationManager;
@@ -235,14 +247,15 @@ public class CourseManager {
 		return null;
 		
 	}
-	
+
 	/**
-	 * 
-	 * @param courseCode CSC343H1
+	 * Get course space string.
+	 *
+	 * @param courseCode        CSC343H1
 	 * @param courseSessionCode 20171
-	 * @param sectionCode S
+	 * @param sectionCode       S
 	 * @param registrationIndex 0
-	 * @return
+	 * @return string
 	 */
 	public String getCourseSpace(String courseCode, String courseSessionCode, String sectionCode, int registrationIndex){
 		EnrolledCourse course = loadExtraInfo(courseCode, courseSessionCode, sectionCode, registrationIndex);
@@ -309,27 +322,45 @@ public class CourseManager {
 		}
 		
 	}
-	
+
+	/**
+	 * Get applied courses list.
+	 *
+	 * @return the list
+	 */
 	public List<EnrolledCourse> getAppliedCourses(){
 		if(appliedCourses.size() == 0)
 			loadCourses();
 		return appliedCourses;
 	}
-	
+
+	/**
+	 * Get planned courses list.
+	 *
+	 * @return the list
+	 */
 	public List<PlannedCourse> getPlannedCourses(){
 		return plannedCourses;
 	}
-	
+
+	/**
+	 * Refresh.
+	 */
 	public void refresh(){
 		appliedCourses = new ArrayList<EnrolledCourse>();
 		plannedCourses = new ArrayList<PlannedCourse>();
 		loadCourses();
 	}
-	
+
 	/**
 	 * normally registrationIndex=1 is summer
 	 * {"course":{"code":"CSC236H1","sectionCode":"Y","primaryTeachMethod":"LEC","enroled":false},"lecture":{"sectionNo":"LEC,5101"},"tutorial":{},"practical":{}}
-	 * @param registrationIndex
+	 *
+	 * @param registrationIndex the registration index
+	 * @param code              the code
+	 * @param sectionCode       the section code
+	 * @param lectureSectionNo  the lecture section no
+	 * @return the boolean
 	 */
 	public boolean enroll(int registrationIndex, String code, String sectionCode, String lectureSectionNo){
 		JsonObject registionParams = registrationManager.getRegistrationParams(registrationIndex)

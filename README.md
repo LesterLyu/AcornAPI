@@ -1,5 +1,9 @@
 # AcornAPI
 
+## [JS Version(Thanks to huchenlei)](https://github.com/huchenlei/acorn-api-js)
+## [Install via NPM](https://www.npmjs.com/package/acorn-api) 
+
+
 ## Example
 
 ### Login

@@ -9,10 +9,19 @@ import okhttp3.Cookie;
 import okhttp3.CookieJar;
 import okhttp3.HttpUrl;
 
+/**
+ * The type Acorn cookie jar.
+ */
 public class AcornCookieJar  implements CookieJar{
 
 	private final HashMap<String, List<Cookie>> cookieStore = new HashMap<>();
 
+	/**
+	 * Save from response.
+	 *
+	 * @param url     the url
+	 * @param cookies the cookies
+	 */
 	public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
 		//System.out.println("saveFromResponse:\n" + cookies);
 		if(cookieStore.containsKey(url.host())){
@@ -29,6 +38,12 @@ public class AcornCookieJar  implements CookieJar{
 		}
 	}
 
+	/**
+	 * Load for request list.
+	 *
+	 * @param url the url
+	 * @return the list
+	 */
 	public List<Cookie> loadForRequest(HttpUrl url) {
 		List<Cookie> cookies = cookieStore.get(url.host());
 		return cookies != null ? cookies : new ArrayList<Cookie>();
@@ -37,7 +52,8 @@ public class AcornCookieJar  implements CookieJar{
 
 	/**
 	 * for self test
-	 * @return
+	 *
+	 * @return map
 	 */
 	public Map<String, List<Cookie>> getAllCookie(){
 		return cookieStore;

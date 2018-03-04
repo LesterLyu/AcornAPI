@@ -19,6 +19,9 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+/**
+ * The type Acorn.
+ */
 public class Acorn {
 	private OkHttpClient client;
 	private String acornUsername;
@@ -29,6 +32,12 @@ public class Acorn {
 	private GradeManager gradeManager;
 	private String url[] = {"https://acorn.utoronto.ca/sws"};
 
+	/**
+	 * Instantiates a new Acorn.
+	 *
+	 * @param acornUsername the acorn username
+	 * @param acornPassword the acorn password
+	 */
 	public Acorn(String acornUsername, String acornPassword) {
 		this.acornUsername = acornUsername;
 		this.acornPassword = acornPassword;
@@ -41,7 +50,12 @@ public class Acorn {
 		gradeManager = new GradeManager(client);
 
 	}
-	
+
+	/**
+	 * Refresh.
+	 *
+	 * @throws LoginFailedException the login failed exception
+	 */
 	public void refresh() throws LoginFailedException{
 		acoreCookieJar = new AcornCookieJar();
 		this.client = new OkHttpClient.Builder()
@@ -53,24 +67,45 @@ public class Acorn {
 		this.doLogin();
 	}
 
+	/**
+	 * Get http client ok http client.
+	 *
+	 * @return the ok http client
+	 */
 	public OkHttpClient getHttpClient(){
 		return client;
 	}
 
+	/**
+	 * Get course manager course manager.
+	 *
+	 * @return the course manager
+	 */
 	public CourseManager getCourseManager(){
 		return courseManager;
 	}
 
+	/**
+	 * Get registration manager registration manager.
+	 *
+	 * @return the registration manager
+	 */
 	public RegistrationManager getRegistrationManager(){
 		return registrationManager;
 	}
 
+	/**
+	 * Get grade manager grade manager.
+	 *
+	 * @return the grade manager
+	 */
 	public GradeManager getGradeManager(){
 		return gradeManager;
 	}
-	
+
 	/**
 	 * Try to login
+	 *
 	 * @return true if login success
 	 * @throws LoginFailedException if problem occurs
 	 */
