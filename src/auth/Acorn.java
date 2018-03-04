@@ -129,10 +129,18 @@ public class Acorn {
 		try {
 			Response response = client.newCall(request).execute();
 			String body = response.body().string();
-			if(body.contains("Authentication failed."))
-				throw new LoginFailedException();
 			Map<String, String> res = getFormData(Jsoup.parse(body), true);
-			System.out.println(res);
+			// Error
+			if(!res.keySet().contains("SAMLResponse")) {
+				// parse error
+				Document doc = Jsoup.parse(body);
+				Elements errors = doc.select("p.form-error");
+				if(errors.size() > 1) {
+					throw new LoginFailedException(errors.get(0).html());
+				}
+				throw new LoginFailedException(errors.html());
+			}
+			// Otherwise, success
 			return res;
 		} catch(Exception e){
 			e.printStackTrace();
@@ -172,7 +180,8 @@ public class Acorn {
 	/**
 	 * Give a Document, parse it and return all form data.
 	 * 
-	 * @param doc
+	 * @param doc: HTML document
+	 * @param includeAction: if include the action attribute in the form 
 	 * @return null if this Document has more than one form or does not have form
 	 */
 	private static Map<String, String> getFormData(Document doc, boolean includeAction){
