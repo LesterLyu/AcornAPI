@@ -32,10 +32,7 @@ public class Acorn {
 	private CourseManager courseManager;
 	private RegistrationManager registrationManager;
 	private GradeManager gradeManager;
-	private String url[] = {"https://acorn.utoronto.ca/sws", 
-			"https://weblogin.utoronto.ca/",
-			"https://idp.utorauth.utoronto.ca/PubCookie.reply",
-	"https://acorn.utoronto.ca/spACS"};
+	private String url[] = {"https://acorn.utoronto.ca/sws"};
 
 	public Acorn(String acornUsername, String acornPassword) {
 		this.acornUsername = acornUsername;
@@ -97,40 +94,20 @@ public class Acorn {
 				doStep1(new InternalCallback() {
 
 					@Override
-					public void success(Map<String, String> step1) {
-						doStep2(step1, new InternalCallback() {
+					public void success(Map<String, String> loginInfo) {
+
+						loginInfo.put("j_username", acornUsername);
+						loginInfo.put("j_password", acornPassword);
+						doStep2(loginInfo, new InternalCallback() {
 
 							@Override
-							public void success(Map<String, String> loginInfo) {
-								loginInfo.put("user", acornUsername);
-								loginInfo.put("pass", acornPassword);
-								doStep3(loginInfo, new InternalCallback() {
+							public void success(Map<String, String> redirectToAcorn ) {
+
+								doStep3(redirectToAcorn , new InternalCallback() {
 
 									@Override
-									public void success(Map<String, String> step3) {
-										doStep4(step3, new InternalCallback() {
-
-											@Override
-											public void success(Map<String, String> step4) {
-												doStep5(step4, new InternalCallback() {
-
-													@Override
-													public void success(Map<String, String> m) {
-														sl.success();
-													}
-
-													@Override
-													public void failure(Exception e) {
-														sl.failure(e);
-													}
-												});
-											}
-
-											@Override
-											public void failure(Exception e) {
-												sl.failure(e);
-											}
-										});
+									public void success(Map<String, String> m) {
+										sl.success();
 									}
 
 									@Override
@@ -139,23 +116,20 @@ public class Acorn {
 									}
 								});
 							}
-
+							
 							@Override
 							public void failure(Exception e) {
-								sl.failure(e);
 							}
 						});
 					}
-
+					
 					@Override
 					public void failure(Exception e) {
-						sl.failure(e);
+						// TODO Auto-generated method stub
 					}
 				});
 			}
 		});
-
-
 	}
 
 
@@ -174,7 +148,7 @@ public class Acorn {
 			@Override
 			public void onResponse(Call call, Response response) throws IOException {
 				String body = response.body().string();
-				if(body.contains("<html>")){
+				if(body.contains("weblogin idpz")){
 					sl.failure(null);
 				}
 				else
@@ -191,7 +165,7 @@ public class Acorn {
 
 	/**
 	 * First step,
-	 * get pubcookie_g_req, post_stuff, relay_url from https://idp.utorauth.utoronto.ca/idp/Authn/RemoteUserForceAuth
+	 * get params from https://idpz.utorauth.utoronto.ca/idp/profile/SAML2/Redirect/SSO
 	 * @return the Map of them
 	 */
 	public void doStep1(final InternalCallback callback){
@@ -208,28 +182,33 @@ public class Acorn {
 
 			@Override
 			public void onResponse(Call call, Response response) throws IOException {
-				Map<String, String> step1 = getFormData(Jsoup.parse(response.body().string()));
+				Map<String, String> step1 = getFormData(Jsoup.parse(response.body().string()), false);
 				if(step1 == null)
 					callback.failure(new LoginFailedException("Internet Unavailable / Unknown Error"));
-				else
+				else {
+					step1.put("_eventId_proceed", ""); // must have this field!
+					step1.put("new-url", response.request().url().toString());
 					callback.success(step1);
+				}
 			}
-
 		});
 	}
 
 	/**
 	 * Second step
-	 * get 25 params include password and username
+	 * Log in with username / password, supposed to get SAMLResponse
 	 * @return
 	 */
 	private void doStep2(Map<String, String> params, final InternalCallback callback){
+		System.out.println(params);
+		String newUrl = params.remove("new-url");
 		FormBody.Builder formBuilder = new FormBody.Builder();
 		for(String key: params.keySet()){
 			formBuilder.add(key, params.get(key));
 		}
 		Request request = new Request.Builder()
-				.url(url[1])
+				.url(newUrl)
+				.addHeader("Content-Type", "application/x-www-form-urlencoded")
 				.post(formBuilder.build())
 				.build();
 		client.newCall(request).enqueue(new Callback() {
@@ -241,93 +220,37 @@ public class Acorn {
 
 			@Override
 			public void onResponse(Call call, Response response) throws IOException {
-				Map<String, String> step2 = getFormData(Jsoup.parse(response.body().string()));
-				if(step2 == null)
-					callback.failure(new LoginFailedException("Internet Unavailable / Unknown Error"));
-				else
-					callback.success(step2);
+				String body = response.body().string();
+				Map<String, String> step2 = getFormData(Jsoup.parse(body), true);
+				// Error
+				if(!step2.keySet().contains("SAMLResponse")) {
+					// parse error
+					Document doc = Jsoup.parse(body);
+					Elements errors = doc.select("p.form-error");
+					if(errors.size() > 1) {
+						callback.failure(new LoginFailedException(errors.get(0).html()));
+					}
+					callback.failure(new LoginFailedException(errors.html()));
+				}
+				// Otherwise, success
+				callback.success(step2);
 			}
 
 		});
 	}
 
 	/**
-	 * Third Step - do log in
+	 * 3th Step - final login, send SAMLRespons, return true if success
 	 */
 	private void doStep3(Map<String, String> params, final InternalCallback callback){
+		System.out.println(params);
+		String newUrl = params.remove("new-action");
 		FormBody.Builder formBuilder = new FormBody.Builder();
 		for(String key: params.keySet()){
 			formBuilder.add(key, params.get(key));
 		}
 		Request request = new Request.Builder()
-				.url(url[1])
-				.post(formBuilder.build())
-				.addHeader("Content-Type", "application/x-www-form-urlencoded")
-				.build();
-		client.newCall(request).enqueue(new Callback() {
-
-			@Override
-			public void onFailure(Call call, IOException e) {
-				callback.failure(e);
-			}
-
-			@Override
-			public void onResponse(Call call, Response response) throws IOException {
-				String body = response.body().string();
-				if(body.contains("Authentication failed."))
-					callback.failure(new LoginFailedException());
-				Map<String, String> res = getFormData(Jsoup.parse(body));
-				if(res == null)
-					callback.failure(new LoginFailedException("Internet Unavailable / Unknown Error"));
-				else
-					callback.success(res);
-			}
-
-		});
-	}
-
-	/**
-	 * 4th Step
-	 */
-	private void doStep4(Map<String, String> params, final InternalCallback callback){
-		FormBody.Builder formBuilder = new FormBody.Builder();
-		for(String key: params.keySet()){
-			formBuilder.add(key, params.get(key));
-		}
-		Request request = new Request.Builder()
-				.url(url[2])
-				.post(formBuilder.build())
-				.build();
-		client.newCall(request).enqueue(new Callback() {
-
-			@Override
-			public void onFailure(Call call, IOException e) {
-				callback.failure(e);
-			}
-
-			@Override
-			public void onResponse(Call call, Response response) throws IOException {
-				String body = response.body().string();
-				Map<String, String> res = getFormData(Jsoup.parse(body));
-				if(res == null)
-					callback.failure(new LoginFailedException("Internet Unavailable / Unknown Error"));
-				else
-					callback.success(res);
-			}
-
-		});
-	}
-
-	/**
-	 * 5th Step - final login, return true if success
-	 */
-	private void doStep5(Map<String, String> params, final InternalCallback callback){
-		FormBody.Builder formBuilder = new FormBody.Builder();
-		for(String key: params.keySet()){
-			formBuilder.add(key, params.get(key));
-		}
-		Request request = new Request.Builder()
-				.url(url[3])
+				.url(newUrl)
 				.post(formBuilder.build())
 				.build();
 		client.newCall(request).enqueue(new Callback() {
@@ -351,11 +274,12 @@ public class Acorn {
 
 	/**
 	 * Give a Document, parse it and return all form data.
-	 *
-	 * @param doc
+	 * 
+	 * @param doc: HTML document
+	 * @param includeAction: if include the action attribute in the form 
 	 * @return null if this Document has more than one form or does not have form
 	 */
-	private static Map<String, String> getFormData(Document doc){
+	private static Map<String, String> getFormData(Document doc, boolean includeAction){
 		Elements formElements = doc.getElementsByTag("form");
 		if(formElements.size() != 1)
 			return null;
@@ -365,6 +289,8 @@ public class Acorn {
 		for(KeyVal kv: data){
 			map.put(kv.key(), kv.value());
 		}
+		if(includeAction)
+			map.put("new-action", formElements.attr("action"));
 		return map;
 	}
 

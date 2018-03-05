@@ -19,6 +19,7 @@ import auth.RegistrationManager;
 import entity.enrol.EnrolledCourse;
 import entity.enrol.Meeting;
 import entity.plan.PlannedCourse;
+import exception.LoginFailedException;
 import okhttp3.Cookie;
 import okhttp3.HttpUrl;
 import okhttp3.MediaType;
@@ -65,15 +66,16 @@ public class CourseManager {
 	 * Note:
 	 * UTSC separate 1 year into two registrations, UTSG has only one registration per year,
 	 * for UTM idk.
+	 * @throws LoginFailedException 
 	 */
-	public void loadCourses(){
+	public void loadCourses() throws LoginFailedException{
 		for(int i = 0; i < registrationManager.getNumberOfRegistrations(); i++){
 			loadEnrolledCourses(i);
 			loadPlannedCourse(i);
 		}
 	}
 
-	private void loadEnrolledCourses(int registrationIndex){
+	private void loadEnrolledCourses(int registrationIndex) throws LoginFailedException{
 		JsonObject registionParams = registrationManager.getRegistrationParams(registrationIndex)
 				.get("registrationParams").getAsJsonObject();
 		//System.out.println(registionParams);
@@ -180,8 +182,9 @@ public class CourseManager {
 	 * AND
 	 * For searching a course info, even though not enrolled or waiting listed yet.
 	 * @return a complete EnrolledCourse
+	 * @throws LoginFailedException 
 	 */
-	private EnrolledCourse loadExtraInfo(String courseCode, String courseSessionCode, String sectionCode, int registrationIndex){
+	private EnrolledCourse loadExtraInfo(String courseCode, String courseSessionCode, String sectionCode, int registrationIndex) throws LoginFailedException{
 		JsonObject registionParams = registrationManager.getRegistrationParams(registrationIndex)
 				.get("registrationParams").getAsJsonObject();
 		//System.out.println(registionParams);
@@ -243,8 +246,9 @@ public class CourseManager {
 	 * @param sectionCode S
 	 * @param registrationIndex 0
 	 * @return
+	 * @throws LoginFailedException 
 	 */
-	public String getCourseSpace(String courseCode, String courseSessionCode, String sectionCode, int registrationIndex){
+	public String getCourseSpace(String courseCode, String courseSessionCode, String sectionCode, int registrationIndex) throws LoginFailedException{
 		EnrolledCourse course = loadExtraInfo(courseCode, courseSessionCode, sectionCode, registrationIndex);
 		String spaceInfo = courseCode + sectionCode + " Space: ";
 		for(Meeting meeting: course.getMeetings()){
@@ -255,7 +259,7 @@ public class CourseManager {
 	}
 	
 	
-	private void loadPlannedCourse(int registrationIndex){
+	private void loadPlannedCourse(int registrationIndex) throws LoginFailedException{
 		// https://acorn.utoronto.ca/sws/rest/enrolment/plan?candidacyPostCode=ASPRGHBSC&candidacySessionCode=20169&sessionCode=20169
 		JsonObject registionParams = registrationManager.getRegistrationParams(registrationIndex).getAsJsonObject();
 		//System.out.println(registionParams);
@@ -310,7 +314,7 @@ public class CourseManager {
 		
 	}
 	
-	public List<EnrolledCourse> getAppliedCourses(){
+	public List<EnrolledCourse> getAppliedCourses() throws LoginFailedException{
 		if(appliedCourses.size() == 0)
 			loadCourses();
 		return appliedCourses;
@@ -320,7 +324,7 @@ public class CourseManager {
 		return plannedCourses;
 	}
 	
-	public void refresh(){
+	public void refresh() throws LoginFailedException{
 		appliedCourses = new ArrayList<EnrolledCourse>();
 		plannedCourses = new ArrayList<PlannedCourse>();
 		loadCourses();
@@ -330,8 +334,9 @@ public class CourseManager {
 	 * normally registrationIndex=1 is summer
 	 * {"course":{"code":"CSC236H1","sectionCode":"Y","primaryTeachMethod":"LEC","enroled":false},"lecture":{"sectionNo":"LEC,5101"},"tutorial":{},"practical":{}}
 	 * @param registrationIndex
+	 * @throws LoginFailedException 
 	 */
-	public boolean enroll(int registrationIndex, String code, String sectionCode, String lectureSectionNo){
+	public boolean enroll(int registrationIndex, String code, String sectionCode, String lectureSectionNo) throws LoginFailedException{
 		JsonObject registionParams = registrationManager.getRegistrationParams(registrationIndex)
 				.get("registrationParams").getAsJsonObject();
 		

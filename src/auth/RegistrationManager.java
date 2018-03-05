@@ -11,6 +11,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import exception.LoginFailedException;
 import exception.MoreThanOneRegistrationException;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -26,7 +27,7 @@ public class RegistrationManager {
 		this.client = client;
 	}
 
-	public List<String> getEligibleRegistrations(){
+	public List<String> getEligibleRegistrations() throws LoginFailedException{
 		System.out.println("Requesting Eligible Registrations...");
 		// https://acorn.utoronto.ca/sws/rest/enrolment/eligible-registrations
 		Request request = new Request.Builder()
@@ -36,6 +37,11 @@ public class RegistrationManager {
 		try {
 			Response response = client.newCall(request).execute();
 			String eligibleRegistrationsJson = response.body().string();
+			// check error
+			if(eligibleRegistrationsJson.contains("Error")) {
+				throw new LoginFailedException("getEligibleRegistrations: " + eligibleRegistrationsJson);
+			}
+			
 			System.out.println(eligibleRegistrationsJson);
 			// parse the readable string
 			JsonParser parser = new JsonParser();
@@ -56,14 +62,14 @@ public class RegistrationManager {
 	}
 
 	
-	public int getNumberOfRegistrations(){
+	public int getNumberOfRegistrations() throws LoginFailedException{
 		if(registrationsArray == null)
 			getEligibleRegistrations();
 		return registrationsArray.size();
 	}
 
 
-	public JsonObject getRegistrationParams(){
+	public JsonObject getRegistrationParams() throws LoginFailedException{
 		if(registrationsArray == null)
 			getEligibleRegistrations();
 		if(registrationsArray.size() > 1)
@@ -71,7 +77,7 @@ public class RegistrationManager {
 		return getRegistrationParams(0);
 	}
 
-	public JsonObject getRegistrationParams(int index){
+	public JsonObject getRegistrationParams(int index) throws LoginFailedException{
 		if(registrationsArray == null)
 			getEligibleRegistrations();
 		 return registrationsArray.get(index).getAsJsonObject();

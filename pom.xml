@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.lvds2000</groupId>
 	<artifactId>AcornAPI</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.2-Android</version>
 	<repositories>
 		<repository>
 			<id>jitpack.io</id>
