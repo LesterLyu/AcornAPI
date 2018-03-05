@@ -69,6 +69,9 @@ public class CourseManager {
 	 * @throws LoginFailedException 
 	 */
 	public void loadCourses() throws LoginFailedException{
+		// clear first
+        appliedCourses = new ArrayList<EnrolledCourse>();
+        plannedCourses = new ArrayList<PlannedCourse>();
 		for(int i = 0; i < registrationManager.getNumberOfRegistrations(); i++){
 			loadEnrolledCourses(i);
 			loadPlannedCourse(i);

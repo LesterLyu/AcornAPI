@@ -119,13 +119,14 @@ public class Acorn {
 							
 							@Override
 							public void failure(Exception e) {
+								sl.failure(e);
 							}
 						});
 					}
 					
 					@Override
 					public void failure(Exception e) {
-						// TODO Auto-generated method stub
+						sl.failure(e);
 					}
 				});
 			}
@@ -200,7 +201,7 @@ public class Acorn {
 	 * @return
 	 */
 	private void doStep2(Map<String, String> params, final InternalCallback callback){
-		System.out.println(params);
+		//System.out.println(params);
 		String newUrl = params.remove("new-url");
 		FormBody.Builder formBuilder = new FormBody.Builder();
 		for(String key: params.keySet()){
@@ -227,10 +228,10 @@ public class Acorn {
 					// parse error
 					Document doc = Jsoup.parse(body);
 					Elements errors = doc.select("p.form-error");
-					if(errors.size() > 1) {
+					if(errors.size() > 0) {
 						callback.failure(new LoginFailedException(errors.get(0).html()));
+						return;
 					}
-					callback.failure(new LoginFailedException(errors.html()));
 				}
 				// Otherwise, success
 				callback.success(step2);
@@ -243,7 +244,7 @@ public class Acorn {
 	 * 3th Step - final login, send SAMLRespons, return true if success
 	 */
 	private void doStep3(Map<String, String> params, final InternalCallback callback){
-		System.out.println(params);
+		//System.out.println(params);
 		String newUrl = params.remove("new-action");
 		FormBody.Builder formBuilder = new FormBody.Builder();
 		for(String key: params.keySet()){
@@ -262,10 +263,15 @@ public class Acorn {
 
 			@Override
 			public void onResponse(Call call, Response response) throws IOException {
-				if(response.body().string().contains("<title>ACORN</title>"))
+				String body = response.body().string();
+				if(body.contains("<title>ACORN</title>"))
 					callback.success(null);
+				else if(body.contains("ACORN Unavailable")) {
+					callback.failure(new LoginFailedException("ACORN is currently unavailable. We apologize for any inconvenience."));
+				}
 				else
-					callback.failure(new LoginFailedException("Acorn Unavailable"));
+					callback.failure(new LoginFailedException("Acorn Unavailable/Unknown Error"));
+				
 			}
 
 		});

@@ -21,7 +21,7 @@ public class RegistrationManager {
 
 	private OkHttpClient client;
 
-	JsonArray registrationsArray;
+	private JsonArray registrationsArray;
 
 	public RegistrationManager(OkHttpClient client) {
 		this.client = client;
@@ -41,7 +41,10 @@ public class RegistrationManager {
 			if(eligibleRegistrationsJson.contains("Error")) {
 				throw new LoginFailedException("getEligibleRegistrations: " + eligibleRegistrationsJson);
 			}
-			
+			else if(eligibleRegistrationsJson.contains("ACORN Unavailable")) {
+				throw new LoginFailedException("ACORN is currently unavailable. We apologize for any inconvenience.");
+			}
+
 			System.out.println(eligibleRegistrationsJson);
 			// parse the readable string
 			JsonParser parser = new JsonParser();
@@ -61,7 +64,7 @@ public class RegistrationManager {
 		return null;
 	}
 
-	
+
 	public int getNumberOfRegistrations() throws LoginFailedException{
 		if(registrationsArray == null)
 			getEligibleRegistrations();
@@ -80,7 +83,7 @@ public class RegistrationManager {
 	public JsonObject getRegistrationParams(int index) throws LoginFailedException{
 		if(registrationsArray == null)
 			getEligibleRegistrations();
-		 return registrationsArray.get(index).getAsJsonObject();
+		return registrationsArray.get(index).getAsJsonObject();
 	}
 
 }

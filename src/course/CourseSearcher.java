@@ -61,12 +61,17 @@ public class CourseSearcher{
 
 				@Override
 				public void onResponse(Call call, Response response) throws IOException {
+					String body = response.body().string();
+					if(body.trim().equals("[]")) {
+						r.failure();
+						return;
+					}
 					Map<String, JsonObject> courses = new HashMap<String, JsonObject>();
 					JsonParser parser = new JsonParser();
-					JsonObject obj = parser.parse(response.body().string()).getAsJsonObject();
+					JsonObject obj = parser.parse(body).getAsJsonObject();
 					
 					for(Entry<String, JsonElement> entry: obj.entrySet()){
-						String courseCode = entry.getKey().substring(0, 6);
+						String courseCode = entry.getKey().substring(0, 8);
 						if(courses.keySet().contains(courseCode)) 
 							continue;
 						courses.put(courseCode, entry.getValue().getAsJsonObject());
